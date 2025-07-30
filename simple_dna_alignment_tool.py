@@ -1,12 +1,40 @@
 import streamlit as st
 import numpy as np
 
-# Scoring system
+# 🎥 Video Background Styling
+st.markdown(
+    f"""
+    <style>
+    .video-background {{
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        min-width: 100%;
+        min-height: 100%;
+        z-index: -1;
+        object-fit: cover;
+        opacity: 0.2;
+    }}
+    .block-container {{
+        position: relative;
+        z-index: 1;
+        backdrop-filter: blur(4px); /* makes content stand out */
+    }}
+    </style>
+
+    <video autoplay muted loop class="video-background">
+        <source src="https://github.com/anushkagade/updatedproject/raw/main/background.mp4" type="video/mp4">
+    </video>
+    """,
+    unsafe_allow_html=True
+)
+
+# 🧬 Scoring system
 MATCH_AWARD = 1
 MISMATCH_PENALTY = -1
 GAP_PENALTY = -2
 
-# Needleman-Wunsch algorithm
+# 🔬 Needleman-Wunsch Algorithm
 def needleman_wunsch(seq1, seq2):
     m, n = len(seq1), len(seq2)
     score = np.zeros((m + 1, n + 1), dtype=int)
@@ -58,10 +86,10 @@ def needleman_wunsch(seq1, seq2):
 
     return align1, align2, score[m][n]
 
-# Streamlit UI
+# 🌐 Streamlit UI
 st.title("🔬 Simple DNA Sequence Alignment Tool")
 
-method = st.radio("Choose alignment method:", ["Needleman-Wunsch (Global)"])  # You can add Smith-Waterman later
+method = st.radio("Choose alignment method:", ["Needleman-Wunsch (Global)"])
 
 seq1 = st.text_input("Enter DNA Sequence 1 (e.g. AGCTG):")
 seq2 = st.text_input("Enter DNA Sequence 2 (e.g. AGCT):")
